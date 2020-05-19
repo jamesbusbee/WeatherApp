@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <title>Today's Forecast</title>
+    </head>
+    <body id="body">
+        <div id="dropdown">
+            <nav>
+                <ul>
+                    <li>
+                        <a href="#">&#9776;</a>    <!-- three line menu icon -->
+                        <ul>      
+                            <div id = "temperature">
+                                    
+                                <label class="menuItem"><input type="radio" name="toggle" class="darkMode" onclick="darkMode()"><span class="darkmodesign" id="darkmodesign">Dark Mode</span></label>
+                                    
+                                <label class="fahrenheit"><input type="radio" name="toggle" checked = true id = "fahrenheit" onclick="getWeather()"><span>Fahrenheit</span></label>
+                                    
+                                <label class="celsius"><input type="radio" name="toggle" id = "celsius" onclick="getWeather()"><span>Celsius</span></label>
+                                    
+                                <label class="kelvin"><input type="radio" name="toggle" id = "kelvin" onclick="getWeather()" ><span>Kelvin</span></label>
+                            </div>
+                        </ul> 
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        
+        <!-- date displayed in bottom left corner -->
+        <div id="date" class="dayDate"></div>
+        
+        <!-- current day forecast section-->
+        <div id="container1" class="container">
+            <canvas id="icon" width="100%" height="100%"></canvas>
+            <h1>
+                <div id="temp"></div>
+                <br>
+                <div id="day" class="dayDate"></div>
+                <div id="summary"></div>
+            </h1>
+  
+        </div>
+        
+        <!-- 7 day forecast section -->
+        <div id="container2" class="container">
+            <h1>7 Day Forecast</h1>
+            <h3>
+                <div id="weeklyForecast"></div>  <!-- summary returned from Dark Sky -->
+            </h3>
+            
+            <!-- next 7 days --> 
+            <div class="forecast">
+                <canvas id="icon2" width="60" height="60"></canvas>
+            </div>
+            <div class="forecast">    
+                <canvas id="icon3" width='60' height="60"></canvas>
+            </div>
+            <div class="forecast">    
+                <canvas id="icon4" width='60' height="60"></canvas>
+            </div>
+            <div class="forecast">    
+                <canvas id="icon5" width='60' height="60"></canvas>
+            </div>
+            <div class="forecast">    
+                <canvas id="icon6" width='60' height="60"></canvas>
+            </div>
+            <div class="forecast">    
+                <canvas id="icon7" width='60' height="60"></canvas>
+            </div>
+            <div class="forecast">    
+                <canvas id="icon8" width='60' height="60"></canvas>
+            </div>
+        </div>
+    </body>
+    <script src="https://rawgithub.com/darkskyapp/skycons/master/skycons.js"></script>
+    <script src="weatherAppScript.js"></script>
+</html>

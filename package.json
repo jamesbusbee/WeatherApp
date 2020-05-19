@@ -1,0 +1,24 @@
+{
+  "name": "weatherapp",
+  "version": "1.0.0",
+  "description": "Application to display weather",
+  "main": "weatherAppScript.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jamesbusbee/WeatherApp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jamesbusbee/WeatherApp/issues"
+  },
+  "homepage": "https://github.com/jamesbusbee/WeatherApp#readme",
+  "dependencies": {
+    "darkskyjs": "^0.3.0",
+    "es6-promise": "^4.2.8",
+    "moment": "^2.25.3"
+  }
+}

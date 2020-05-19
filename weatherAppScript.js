@@ -1,3 +1,5 @@
+import Darksky from 'darkskyjs';
+
 function getWeather(){
     let summary = document.getElementById("summary");
     let dsKey = "b18bbf608384819c30b48f368cb73167";       // api key for DarkSky API
@@ -29,8 +31,9 @@ function getWeather(){
                 else{
                     alert("whoops");
                 }
-                $("#summary").html(data.minutely.summary);
-                $("#weeklyForecast").html(data.daily.summary);
+                $("#summary").html(data.daily.summary);
+                $("#weeklyForecast").html(data.hourly.summary);
+                console.log(data.hourly.summary);
                 let icon = data.currently.icon;
                            
                 let icon3 = data.daily.icon;

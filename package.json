@@ -16,9 +16,5 @@
     "url": "https://github.com/jamesbusbee/WeatherApp/issues"
   },
   "homepage": "https://github.com/jamesbusbee/WeatherApp#readme",
-  "dependencies": {
-    "darkskyjs": "^0.3.0",
-    "es6-promise": "^4.2.8",
-    "moment": "^2.25.3"
   }
 }

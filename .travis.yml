@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - 12.16.3
 env:
-  - DARKSYKEY
-  -HEREKEY
+  - DARK_SKY_KEY
+  - HERE_KEY
 script:
 - echo "skipping tests"  

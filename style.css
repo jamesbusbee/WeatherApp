@@ -1,3 +1,41 @@
+/*extra small devices -- */
+@media only screen and (max-width: 633px)
+{
+    #forecastIconContainer {width: 100%;}
+    #icon {width: 100%;}
+    .fcIcon {width: 49%; height: 100%;}
+
+    
+}
+/*small devices -- portrait tablets and large phones*/
+@media only screen and (min-width: 633px)
+{
+    #forecastIconContainer {width: 100%;}
+    #icon {width: 100%;}
+    .fcIcon {width: 40%; height: 100%;}
+}
+/*small devices -- portrait tablets and large phones*/
+@media only screen and (min-width: 768px)
+{
+    #forecastIconContainer {width: 100%;}
+    #icon {width: 70%;}
+    .fcIcon {width: 40%; height: 100%;}
+}
+/*small devices -- portrait tablets and large phones*/
+@media only screen and (min-width: 992px)
+{
+    #forecastIconContainer {width: 100%;}
+    #icon {width: 60%;}
+    .fcIcon {width: 30%; height: 100%;}
+}
+/*small devices -- portrait tablets and large phones*/
+@media only screen and (min-width: 1200px)
+{
+    #forecastIconContainer {width: 100%;}
+    .fcIcon {width: 16%; height: 10%;}
+}
+
+
 html
 {
     font-family: "Avenir Next", sans-serif;
@@ -17,7 +55,7 @@ h1, h2, h3{
 /* DROPDOWN MENU */
 #dropdown
 {
-    position: absolute;
+    position: sticky;
     text-align: left;
     left:0;
     top: 0;
@@ -27,11 +65,7 @@ h1, h2, h3{
 nav
 {
 
-    display: -webkit-flex;
-    display: -mox-flex;
-    display: -ms-flex;
-    display: -o-flex;
-    display: flex;
+    
 }
 nav h3
 {
@@ -69,9 +103,7 @@ nav li button
 nav li:hover,
 nav li:focus
 {
-    background-color: bisque;
     color: black;
-    cursor: pointer;
 }
 nav ul li ul
 {
@@ -94,8 +126,15 @@ nav ul li ul li
     clear: both;
     width: 100%;
     animation: animate 800ms forwards ease;
+    position: sticky;
 }
 
+
+
+
+
+
+/*body elements*/
 #temperature{
     margin:4px;
    
@@ -113,7 +152,7 @@ nav ul li ul li
 }
 #temperature label span {
     text-align:center;
-    font-size: 32px;
+    font-size: 30px;
     padding:13px 0px;
     display:block;
 }
@@ -153,49 +192,89 @@ nav ul li ul li
     right: 0;
     top: 0;
 }
-#temp
-{
-    font-size: 45px;
-}
-
-#date
-{
-    font-family: "Avenir Next", sans-serif;
-    font-size: 20px;
-}
 
 #container1
 {
-
-    padding-bottom: 30px;
+    padding-bottom: 3px;
     background-color: #FAFAFA;
     width: 100%;
 }
 #container2
 {
     position: relative;
-    padding-top: 20px;
     width: 100%;
     height: 100%;
 }
 #forecastIconContainer
 {
-   
+    padding-top: 20px;
 }
 .forecastIcon
 {
-    width: 10%;
-    height: 20%;
+    width: 50%;
+    height: 100%;
     display: inline-block;
 }
 #icon
 {
-    width: 30%;
-    height: 30%;
-}
-#day, #date, #temp, #summary, #weeklyForecast, #weeklyHeader
-{
-    font-size: 2vw;
-}
 
+    position: relative;
+}
+#day
+{
+    font-size: 30px;
+    display: inline-block;
+}
+#temp
+{
+    font-size: 80px;
+}
+ #summary
+{
+    font-size: 45px;
+}
+.fcIcon
+{
+    display: inline-block;
+    font-size: 25px;
+    vertical-align: top;
+}
+#weeklyForecast
+{
+    font-size: 30px;
+}
+#weeklyFcTitle
+{
+    font-size: 35px;
+}
+hr
+{
+    width: 75%;
+}
+.currentHighLow
+{
+    font-size: 25px;
+}
+#and
+{
+    font-size: 30px;
+}
+.fcSumBottom
+{
+    bottom: 0;
+}
+#canvasContainer
+{
+    text-align: center;
+    min-width: 20px;
+    min-height: 20px;
+    
+}
+#currentSumContainer
+{
+    float: inherit;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+}
 

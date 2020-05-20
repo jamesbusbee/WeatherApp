@@ -8,11 +8,10 @@
         <title>Today's Forecast</title>
     </head>
     <body id="body">
-        <!-- date displayed in bottom left corner -->
-        
-        
+
         <!-- current day forecast section-->
         <div id="container1" class="container">
+            <!-- dropdown menu-->
             <div id="dropdown">
                 <nav>
                     <ul>
@@ -33,32 +32,89 @@
                     </ul>
                 </nav>
             </div>
-            <div id="date" class="dayDate"></div>
+            <!-- reverse geolocated position -->
             <div id="day" class="dayDate"></div>
-
-            <canvas id="icon"></canvas>
-            <h1>
+            <!-- current condition skycon -->
+            <div id="canvasContainer"><canvas id="icon"></canvas></div>
+            <div id="currentSumContainer">
                 <div id="temp"></div>
+                <span id="and">and</span>
                 <div id="summary"></div>
-            <h1>
+                <br>
+                <span class="currentHighLow">High: <span id="currentHigh" class="currentHighLow"></span></span>
+                <br>
+                <span class="currentHighLow">Low: <span id="currentLow" class="currentHighLow"></span></span>
+            </div>
         </div>
         
         <!-- 7 day forecast section -->
         <div id="container2" class="container">
-            <h1 id="weeklyHeader">7 Day Forecast</h1>
-            <h1>
-                <div id="weeklyForecast"></div>  <!-- summary returned from Dark Sky -->
-            </h1>
+            <span id="weeklyFcTitle">Weekly Forecast</span>
+            <div id="weeklyForecast"></div>
             
             <!-- next 7 days -->
+            <hr>
             <div id="forecastIconContainer">
-                <canvas class="forecastIcon" id="icon2"></canvas>
-                <canvas class="forecastIcon" id="icon3"></canvas>
-                <canvas class="forecastIcon" id="icon4"></canvas>
-                <canvas class="forecastIcon" id="icon5"></canvas>
-                <canvas class="forecastIcon" id="icon6"></canvas>
-                <canvas class="forecastIcon" id="icon7"></canvas>
-                <canvas class="forecastIcon" id="icon8"></canvas>
+                <div id="fc2" class="fcIcon"><canvas class="forecastIcon" id="icon2"></canvas>
+                    <br>
+                    <span id="dayName1" class="dayName"></span>
+                    <hr>
+                    <span id="fcSpan1" class="fcSpan">this will be summary!</span>
+                    <span class="fcSumBottom"><hr></span>
+                    High: <span id="fcHigh1" class="highLow">Sunrise</span>
+                    <br>
+                    Low: <span id="fcLow1" class="highLow">Sunrise</span>
+                </div>
+                <div id="fc3" class="fcIcon"><canvas class="forecastIcon" id="icon3"></canvas>
+                    <br>
+                    <span id="dayName2" class="dayName"></span>
+                    <hr>
+                    <span id="fcSpan2" class="fcSpan">this will be summary!</span>
+                    <span class="fcSumBottom"><hr></span>
+                    High: <span id="fcHigh2" class="highLow">Sunrise</span>
+                    <br>
+                    Low: <span id="fcLow2" class="highLow">Sunrise</span>
+                </div>
+                <div id="fc4" class="fcIcon"><canvas class="forecastIcon" id="icon4"></canvas>
+                    <br>
+                    <span id="dayName3" class="dayName"></span>
+                    <hr>
+                    <span id="fcSpan3" class="fcSpan">this will be summary!</span>
+                    <span class="fcSumBottom"><hr></span>
+                    High: <span id="fcHigh3" class="highLow">Sunrise</span>
+                    <br>
+                    Low: <span id="fcLow3" class="highLow">Sunrise</span>
+                </div>
+                <div id="fc5" class="fcIcon"><canvas class="forecastIcon" id="icon5"></canvas>
+                    <br>
+                    <span id="dayName4" class="dayName"></span>
+                    <hr>
+                    <span id="fcSpan4" class="fcSpan">this will be summary!</span>
+                    <span class="fcSumBottom"><hr></span>
+                    High: <span id="fcHigh4" class="highLow">Sunrise</span>
+                    <br>
+                    Low: <span id="fcLow4" class="highLow">Sunrise</span>
+                </div>
+                <div id="fc6" class="fcIcon"><canvas class="forecastIcon" id="icon6"></canvas>
+                    <br>
+                    <span id="dayName5" class="dayName"></span>
+                    <hr>
+                    <span id="fcSpan5" class="fcSpan">this will be summary!</span>
+                    <span class="fcSumBottom"><hr></span>
+                    High:  <span id="fcHigh5" class="highLow">Sunrise</span>
+                    <br>
+                    Low: <span id="fcLow5" class="highLow">Sunrise</span>
+                </div>
+                <div id="fc7" class="fcIcon"><canvas class="forecastIcon" id="icon7"></canvas>
+                    <br>
+                    <span id="dayName6" class="dayName"></span>
+                    <hr>
+                    <span id="fcSpan6" class="fcSpan">this will be summary!</span>
+                    <span class="fcSumBottom"><hr></span>
+                    High: <span id="fcHigh6" class="highLow">Sunrise</span>
+                    <br>
+                    Low: <span id="fcLow6" class="highLow">Sunrise</span>
+                </div>
             </div>
         </div>
     </body>

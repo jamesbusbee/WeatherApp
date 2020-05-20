@@ -1,45 +1,77 @@
-import Darksky from 'darkskyjs';
-
 function getWeather(){
-    let summary = document.getElementById("summary");
-    let dsKey = "b18bbf608384819c30b48f368cb73167";       // api key for DarkSky API
-    let dsUrl = "https://api.darksky.net/forecast/";      // api URL
-    let degree = "&deg;"                                  // degree symbol
+    const summary = document.getElementById("summary");
+    const dsKey = "b18bbf608384819c30b48f368cb73167";       // api key for DarkSky API
+    const dsUrl = "https://api.darksky.net/forecast/";      // api URL
+    const degree = "&deg;"                                  // degree symbol
     
     navigator.geolocation.getCurrentPosition(success, error);   // use navigator to retrieve position
                                                                 // pass success and error parameters 
+    const f = document.getElementById("fahrenheit");
+    const c = document.getElementById("celsius");
+    const k = document.getElementById("kelvin");
+    
     function success(pos){
-        lat = pos.coords.latitude.toFixed(4);
-        lng = pos.coords.longitude.toFixed(4);
+        lat = pos.coords.latitude;
+        lng = pos.coords.longitude;
+        console.log(lat);
+        console.log(lng);
         
-        $.getJSON(                                              // get the returned JSON and output it to HTML 
+        // retrieve current location address
+        $.ajax({
+            url: 'https://reverse.geocoder.ls.hereapi.com/6.2/reversegeocode.json',
+            type: 'GET',
+            dataType: 'jsonp',
+            jsonp: 'jsoncallback',
+            data: {
+                prox: lat + ',' + lng,
+                mode: 'retrieveAddresses',
+                maxresults: '1',
+                gen: '9',
+                apiKey: 'lp8eCO_xkdoTAgRNzKh0gEY3Bw-XiYZ9MChy59-XSQI'
+            }, 
+            success: function (data) {
+                console.log(data);
+                $("#day").html(data.Response.View[0].Result[0].Location.Address.Label);
+            }
+        });
+        
+        // retrieve current weather, summary, high/low, skycon 
+        $.getJSON(
             dsUrl + dsKey + "/" + lat + "," + lng + "?callback=?",
             function(data){
-                let f = document.getElementById("fahrenheit");
-                let c = document.getElementById("celsius");
-                let k = document.getElementById("kelvin");
                 
+                // return current day summary
+                $("#summary").html(data.currently.summary);
+                
+                // returns temperature in requested format
                 if (f.checked){
                     $("#temp").html(data.currently.temperature.toFixed(0) + degree + " F");
+                    $("#currentHigh").html(data.daily.data[0].apparentTemperatureHigh.toFixed(0) + degree +" F");
+                    $("#currentLow").html(data.daily.data[0].apparentTemperatureLow.toFixed(0) + degree +" F");
                 }
                 else if (c.checked){
                     $("#temp").html(((data.currently.temperature-32)*5/9).toFixed(0) + degree + " C");
+                    $("#currentHigh").html(((data.daily.data[0].apparentTemperatureHigh-32)*5/9).toFixed(0) + degree +" C");
+                    $("#currentLow").html(((data.daily.data[0].apparentTemperatureLow-32)*5/9).toFixed(0) + degree +" C");
                 }
                 else if (k.checked){
                     $("#temp").html((((data.currently.temperature-32)*5/9)+273).toFixed(0) + degree + " K");
+                    $("#currentHigh").html((((data.daily.data[0].apparentTemperatureHigh-32)*5/9)+273).toFixed(0) + degree +" K");
+                    $("#currentLow").html((((data.daily.data[0].apparentTemperatureLow-32)*5/9)+273).toFixed(0) + degree +" K");
                 }
                 else{
                     alert("whoops");
                 }
-                $("#summary").html(data.daily.summary);
-                $("#weeklyForecast").html(data.hourly.summary);
-                console.log(data.hourly.summary);
-                let icon = data.currently.icon;
-                           
-                let icon3 = data.daily.icon;
                 
-                let skycon = new Skycons({"color":"orange"});
-                switch(icon){                                  // switch statement to handle skycon selection 
+                // return weekly forecast
+                $("#weeklyForecast").html(data.daily.summary);
+                // JSON object for reference
+                console.log(data);
+                
+                const icon = data.currently.icon;
+                const skycon = new Skycons({"color":"orange"});
+                // handles current day skycon selection 
+                switch(icon){ 
                     case "clear-day":
                         skycon.set("icon", Skycons.CLEAR_DAY);
                         skycon.play();
@@ -84,15 +116,43 @@ function getWeather(){
             }
         );
         
-        // API call for very next day forecast
-        // will need a variable to handle days as UNIX Time stamps
+        // retrieve forecast summary, day names, summaries, high/low, skycons
         $.getJSON(
-            dsUrl + dsKey + "/" + lat + "," + lng + 1585785600 + "?callback=?",
+            dsUrl + dsKey + "/" + lat + "," + lng + "?callback=?",
             function(data){
                 for (i = 1; i < 9; i++){
                     $("#forecast").html(data.summary);
-                    let iconi = data.daily.icon;
+                    let iconi = data.daily.data[i].icon;
+                    let fcSummary = data.daily.data[i].summary;
+                    let high = data.daily.data[i].apparentTemperatureHigh;
+                    let low = data.daily.data[i].apparentTemperatureLow;
+                    let fcTime = data.daily.data[i].time;
+                    
+                // assign name of day to forecasts
+                    let date = new Date(fcTime * 1000);
+                    let dateStr = date.toDateString();
+                    $("#dayName"+i).html(dateStr);
+                    
+                // returns temperature in requested format
+                    if (f.checked){
+                    $("#fcHigh"+i).html(high.toFixed(0)+degree+" F");
+                    $("#fcLow"+i).html(low.toFixed(0)+degree+" F");
+                }
+                    else if (c.checked){
+                    $("#fcHigh"+i).html(((high-32)*5/9).toFixed(0)+degree+" C");
+                    $("#fcLow"+i).html(((low-32)*5/9).toFixed(0)+degree+" C");
+                }
+                    else if (k.checked){
+                    $("#fcHigh"+i).html((((high-32)*5/9)+273).toFixed(0)+degree+" F");
+                    $("#fcLow"+i).html((((low-32)*5/9)+273).toFixed(0)+degree+" F");
+                }
+                    else{
+                    alert("whoops");
+                }
+                // list forecasted daily summaries
+                    $("#fcSpan"+i).html(fcSummary);
                 
+                // handles assigning skycon 
                     let skyconi = new Skycons({"color":"orange"});
                     switch(iconi){                                  // switch statement to handle skycon selection 
                         case "clear-day":
@@ -144,42 +204,14 @@ function getWeather(){
     function error(){                 // throw error message 
         summary.innerHTML = "Error retrieving weather forecast.";
     }
-    summary.innerHTML = "Weather Loading...";  // place holder
 }
 
 // function to display current day and date 
 function displayTimeAndDay(){
     
     let today = new Date();
-    let month = today.getMonth() + 1;   // getMonth returns last month incriment by 1
-    let dow = today.getDay();           // current day
+    $("#day").html(today.toDateString());
     
-    $("#date").html(today.getDate()+'/'+month+'/'+today.getFullYear());
-    
-    switch(dow){                        // day of the week switch 
-        case 0:
-            $("#day").html("Sunday");
-            break;
-        case 1:
-            $("#day").html("Monday");
-            break;
-        case 2:
-            $("#day").html("Tuesday");
-            break;
-        case 3:
-            $("#day").html("Wednesday");
-            break;
-        case 4:
-            $("#day").html("Thursday");
-            break;
-        case 5:
-            $("#day").html("Friday");
-            break;
-        case 6:
-            $("#day").html("Saturday");
-            break;
-    }
-
 }
 
 // dark mode 
@@ -205,5 +237,5 @@ function darkMode(){
 
 }
 
-displayTimeAndDay();
+//displayTimeAndDay();
 getWeather();

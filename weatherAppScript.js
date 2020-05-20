@@ -1,6 +1,6 @@
 function getWeather(){
     const summary = document.getElementById("summary");
-    const dsKey = "b18bbf608384819c30b48f368cb73167";       // api key for DarkSky API
+    const dsKey = DARKSKYKEY;       // api key for DarkSky API
     const dsUrl = "https://api.darksky.net/forecast/";      // api URL
     const degree = "&deg;"                                  // degree symbol
     
@@ -27,7 +27,7 @@ function getWeather(){
                 mode: 'retrieveAddresses',
                 maxresults: '1',
                 gen: '9',
-                apiKey: 'lp8eCO_xkdoTAgRNzKh0gEY3Bw-XiYZ9MChy59-XSQI'
+                apiKey: HEREKEY
             }, 
             success: function (data) {
                 console.log(data);

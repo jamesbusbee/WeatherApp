@@ -5,4 +5,4 @@ env:
   - DARKSYKEY
   -HEREKEY
 script:
-  - echo "skipping tests"
+- echo "skipping tests"  

@@ -10,13 +10,14 @@
     "type": "git",
     "url": "git+https://github.com/jamesbusbee/WeatherApp.git"
   },
-  "author": "James Busbee",
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/jamesbusbee/WeatherApp/issues"
   },
   "homepage": "https://github.com/jamesbusbee/WeatherApp#readme",
-  "darkskyjs": "^0.3.0",
+  "dependencies": {
+    "darkskyjs": "^0.3.0",
     "es6-promise": "^4.2.8",
     "moment": "^2.25.3"
   }

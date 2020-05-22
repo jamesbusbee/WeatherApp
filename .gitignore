@@ -1,0 +1,8 @@
+# enviornment
+.env
+
+# certificate
+cert.pem
+
+# private key
+key.pem

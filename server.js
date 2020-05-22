@@ -1,39 +1,41 @@
-const http = require('http');
+require('dotenv').config();
 const fs = require('fs');
-const hostname = '127.0.0.1';
-const port = 3000;
+const http = require('http');
+const https = require('https');
+const fetch = require('node-fetch');
+const privateKey = fs.readFileSync('key.pem', 'utf8');
+const certificate = fs.readFileSync('cert.pem', 'utf8');
+const credentials = {key: privateKey, cert: certificate};
+const express = require('express');
+const path = require('path');
+const app = express();
 
-fs.readFile('index.html', (error, html) => {
-    if(error){
-        throw error;
-    }
-    
-    const server = http.createServer((request, response) => {
-        response.statusCode = 200;
-        response.setHeader('Content-type', 'text/html');
-        response.write(html);
-        response.end();
-    });
-
-    server.listen(port, hostname, () => {
-        console.log('Server started on port ' + port);
-    });
+app.use('/static', express.static('public'));
+// create root route
+app.get('/', async (request, response) => {
+  response.sendFile(path.join(__dirname, '/index.html'));
 });
 
-fs.readFile('style.css', (error, css) => {
-    if(error){
-        throw error;
-    }
-    
-    const server = http.createServer((request, response) => {
-        response.statusCode = 200;
-        response.setHeader('Content-type', 'text/css');
-        response.write(html);
-        response.end();
-    });
+// location endpoint
+//app.get('/', async (request, response) => {
+  //response.sendFile(path.join(__dirname, '/index.html'));
+//});
 
-    server.listen(port, hostname, () => {
-        console.log('Server started on port ' + port);
-    });
+// weather endpoint
+app.get('/weather/:latlng', async (request, response) => {
+  const latlng = request.params.latlng.split(',');
+  const lat = latlng[0];
+  const lng = latlng[1];
+  const dsKey = process.env.DARK_SKY_KEY;
+  const dsUrl = `https://api.darksky.net/forecast/${dsKey}/${lat},${lng}`;
+  const fetchResponse = await fetch(dsUrl);
+  const json = await fetchResponse.json();
+  console.log(json);
+  response.json(json);
 });
 
+const httpServer = http.createServer(app);
+const httpsServer = https.createServer(credentials, app);
+console.log("Creating server");
+httpServer.listen(80);
+httpsServer.listen(8443);

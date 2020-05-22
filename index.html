@@ -1,37 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" href="style.css" />
-        <title>Today's Forecast</title>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script type="text/javascript" src="/static/weather.js"></script>
+      <link rel="stylesheet" type="text/css" href="/static/style.css" />
+      <title>Today's Forecast</title>
     </head>
     <body id="body">
+      <!-- dropdown menu-->
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+        <a class="navbar-brand" href="#">James Busbee</a>
 
+        <button id = "fahrenheit">
+          <span>Fahrenheit</span>
+        </button>
+
+        <button id = "celsius">
+          <span>Celsius</span>
+        </button>
+
+        <button id = "kelvin">
+          <span>Kelvin</span>
+        </button>
+
+        <button class="darkMode" onclick="darkMode()">
+          <span class="darkmodesign" id="darkmodesign">Dark Mode</span>
+        </button>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+        data-target="#navbarSupportedContent">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </nav>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+
+          </li>
+        </ul>
+      </div>
         <!-- current day forecast section-->
-        <div id="container1" class="container">
-            <!-- dropdown menu-->
-            <div id="dropdown">
-                <nav>
-                    <ul>
-                        <li>
-                            <a href="#">&#9776;</a>    <!-- three line menu icon -->
-                            <ul>      
-                                <div id = "temperature">    
-                                    <label class="menuItem"><input type="radio" name="toggle" class="darkMode" onclick="darkMode()"><span class="darkmodesign" id="darkmodesign">Dark Mode</span></label>
-                                    
-                                    <label class="fahrenheit"><input type="radio" name="toggle" checked = true id = "fahrenheit" onclick="getWeather()"><span>Fahrenheit</span></label>
-                                    
-                                    <label class="celsius"><input type="radio" name="toggle" id = "celsius" onclick="getWeather()"><span>Celsius</span></label>
-                                    
-                                    <label class="kelvin"><input type="radio" name="toggle" id = "kelvin" onclick="getWeather()" ><span>Kelvin</span></label>
-                                </div>
-                            </ul> 
-                        </li>
-                    </ul>
-                </nav>
-            </div>
             <!-- reverse geolocated position -->
             <div id="day" class="dayDate"></div>
             <!-- current condition skycon -->
@@ -45,79 +59,78 @@
                 <br>
                 <span class="currentHighLow">Low: <span id="currentLow" class="currentHighLow"></span></span>
             </div>
-        </div>
-        
+
+
         <!-- 7 day forecast section -->
         <div id="container2" class="container">
             <span id="weeklyFcTitle">Weekly Forecast</span>
             <div id="weeklyForecast"></div>
-            
+
             <!-- next 7 days -->
             <hr>
             <div id="forecastIconContainer">
-                <div id="fc2" class="fcIcon"><canvas class="forecastIcon" id="icon2"></canvas>
+                <div id="fc1" class="fcIcon"><canvas class="forecastIcon" id="icon2"></canvas>
                     <br>
                     <span id="dayName1" class="dayName"></span>
                     <hr>
                     <span id="fcSpan1" class="fcSpan">this will be summary!</span>
                     <span class="fcSumBottom"><hr></span>
-                    High: <span id="fcHigh1" class="highLow">Sunrise</span>
+                    <span>High: <span id="fcHigh1" class="highLow">Sunrise</span></span>
                     <br>
-                    Low: <span id="fcLow1" class="highLow">Sunrise</span>
+                    <span>Low: <span id="fcLow1" class="highLow">Sunrise</span></span>
                 </div>
-                <div id="fc3" class="fcIcon"><canvas class="forecastIcon" id="icon3"></canvas>
+                <div id="fc2" class="fcIcon"><canvas class="forecastIcon" id="icon3"></canvas>
                     <br>
                     <span id="dayName2" class="dayName"></span>
                     <hr>
                     <span id="fcSpan2" class="fcSpan">this will be summary!</span>
                     <span class="fcSumBottom"><hr></span>
-                    High: <span id="fcHigh2" class="highLow">Sunrise</span>
+                    <span>High: <span id="fcHigh2" class="highLow">Sunrise</span></span>
                     <br>
-                    Low: <span id="fcLow2" class="highLow">Sunrise</span>
+                    <span>Low: <span id="fcLow2" class="highLow">Sunrise</span></span>
                 </div>
-                <div id="fc4" class="fcIcon"><canvas class="forecastIcon" id="icon4"></canvas>
+                <div id="fc3" class="fcIcon"><canvas class="forecastIcon" id="icon4"></canvas>
                     <br>
                     <span id="dayName3" class="dayName"></span>
                     <hr>
                     <span id="fcSpan3" class="fcSpan">this will be summary!</span>
                     <span class="fcSumBottom"><hr></span>
-                    High: <span id="fcHigh3" class="highLow">Sunrise</span>
+                    <span>High: <span id="fcHigh3" class="highLow">Sunrise</span></span>
                     <br>
-                    Low: <span id="fcLow3" class="highLow">Sunrise</span>
+                    <span>Low: <span id="fcLow3" class="highLow">Sunrise</span></span>
                 </div>
-                <div id="fc5" class="fcIcon"><canvas class="forecastIcon" id="icon5"></canvas>
+                <div id="fc4" class="fcIcon"><canvas class="forecastIcon" id="icon5"></canvas>
                     <br>
                     <span id="dayName4" class="dayName"></span>
                     <hr>
                     <span id="fcSpan4" class="fcSpan">this will be summary!</span>
                     <span class="fcSumBottom"><hr></span>
-                    High: <span id="fcHigh4" class="highLow">Sunrise</span>
+                    <span>High: <span id="fcHigh4" class="highLow">Sunrise</span></span>
                     <br>
-                    Low: <span id="fcLow4" class="highLow">Sunrise</span>
+                    <span>Low: <span id="fcLow4" class="highLow">Sunrise</span></span>
                 </div>
-                <div id="fc6" class="fcIcon"><canvas class="forecastIcon" id="icon6"></canvas>
+                <div id="fc5" class="fcIcon"><canvas class="forecastIcon" id="icon6"></canvas>
                     <br>
                     <span id="dayName5" class="dayName"></span>
                     <hr>
                     <span id="fcSpan5" class="fcSpan">this will be summary!</span>
                     <span class="fcSumBottom"><hr></span>
-                    High:  <span id="fcHigh5" class="highLow">Sunrise</span>
+                    <span>High:  <span id="fcHigh5" class="highLow">Sunrise</span></span>
                     <br>
-                    Low: <span id="fcLow5" class="highLow">Sunrise</span>
+                    <span>Low: <span id="fcLow5" class="highLow">Sunrise</span></span>
                 </div>
-                <div id="fc7" class="fcIcon"><canvas class="forecastIcon" id="icon7"></canvas>
+                <div id="fc6" class="fcIcon"><canvas class="forecastIcon" id="icon1"></canvas>
                     <br>
                     <span id="dayName6" class="dayName"></span>
                     <hr>
                     <span id="fcSpan6" class="fcSpan">this will be summary!</span>
                     <span class="fcSumBottom"><hr></span>
-                    High: <span id="fcHigh6" class="highLow">Sunrise</span>
+                    <span>High: <span id="fcHigh6" class="highLow">Sunrise</span></span>
                     <br>
-                    Low: <span id="fcLow6" class="highLow">Sunrise</span>
+                    <span>Low: <span id="fcLow6" class="highLow">Sunrise</span></span>
                 </div>
             </div>
         </div>
     </body>
     <script src="https://rawgithub.com/darkskyapp/skycons/master/skycons.js"></script>
-    <script src="weatherAppScript.js"></script>
 </html>

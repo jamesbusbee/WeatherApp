@@ -3,8 +3,8 @@ const fs = require('fs');
 const http = require('http');
 const https = require('https');
 const fetch = require('node-fetch');
-const privateKey = fs.readFileSync('/static/key.pem', 'utf8');
-const certificate = fs.readFileSync('/static/cert.pem', 'utf8');
+const privateKey = fs.readFileSync('key.pem', 'utf8');
+const certificate = fs.readFileSync('cert.pem', 'utf8');
 const credentials = {key: privateKey, cert: certificate};
 const express = require('express');
 const path = require('path');
@@ -34,8 +34,8 @@ app.get('/weather/:latlng', async (request, response) => {
   response.json(json);
 });
 
-const httpServer = http.createServer(app);
+//const httpServer = http.createServer(app);
 const httpsServer = https.createServer(credentials, app);
 console.log("Creating server");
-httpServer.listen(80);
+//httpServer.listen(80);
 httpsServer.listen(8443);

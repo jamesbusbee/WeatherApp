@@ -34,8 +34,8 @@ app.get('/weather/:latlng', async (request, response) => {
   response.json(json);
 });
 
-const httpServer = http.createServer(app);
-//const httpsServer = https.createServer(credentials, app);
+//const httpServer = http.createServer(app);
+const httpsServer = https.createServer(credentials, app);
 console.log("Creating server");
-httpServer.listen(80);
-//httpsServer.listen(8443);
+//httpServer.listen(80);
+httpsServer.listen(8443);

@@ -1,8 +1,7 @@
 # enviornment
 .env
 
-# certificate
-cert.pem
-
 # private key
 key.pem
+
+node_modules

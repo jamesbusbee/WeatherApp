@@ -1,4 +1,7 @@
-require('dotenv').config();
+if(process.env.NODE_ENV != 'production'){
+  require('dotenv').config();
+}
+
 const fs = require('fs');
 const http = require('http');
 const https = require('https');
@@ -11,11 +14,23 @@ const path = require('path');
 const bcrypt = require('bcrypt');
 const app = express();
 const bodyParser = require('body-parser');
+const expressLayouts = require('express-ejs-layouts');
+const indexRouter = require('./routes/index');
 
-app.set('view-agent', 'ejs');
-
+app.set('view engine', 'ejs');
+app.set('views', __dirname + '/views');
+app.set('layout', 'layouts/layout');
+app.use(expressLayouts);
 app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false }));
 app.use('/static', express.static('public'));
+
+// database set up
+const mongo = require('mongoose');
+mongo.connect(process.env.DATABASE_URL, {useNewUrlParser: true});
+const db = mongo.connection;
+db.on('error', error => console.error(error));
+db.once('open', () => console.log("Connected to Mongodb"));
 
 // CORS fix supposedly
 app.use(function(req, res, next) {
@@ -25,11 +40,52 @@ app.use(function(req, res, next) {
 });
 
 // create root route
-app.get('/', async (request, response) => {
-  response.render('index.ejs');
+app.use('/', indexRouter);
+
+// register and login/user authentication
+app.use(express.json());
+
+// user login
+app.get('/login', async (request, response) => {
+  response.render('login.ejs');
+});
+app.post('/login', async (request, response) => {
+  const user = users.find(user => user.name === request.body.name);
+  if(user == null){
+    return response.status(400).send("Can't find user");
+  } else{
+    try{
+      if(await bcrypt.compare(request.body.password, user.password)){
+        response.send('Success');
+      } else {
+        response.send('Error');
+      }
+    } catch(error){
+      response.status(500).send()
+    }
+  }
 });
 
-// weather endpoint
+// create and push users to database
+app.get('/register', (request, response) => {
+  response.render('register.ejs');
+});
+app.post('/register', async (request, response) => {
+  try{
+    // bigger the salt the more secure -- but more time to make hash default 10
+    const hashedPassword = await bcrypt.hash(request.body.password, 10);
+    console.log(hashedPassword);
+    const user = {name: request.body.name, password: hashedPassword};
+    users.push(user);
+    response.status(201).send();
+  } catch(error) {
+    response.status(500).send();
+    console.log(error);
+  }
+});
+
+
+// weather functionality
 app.get('/weather/:latlng', async (request, response) => {
   const latlng = request.params.latlng.split(',');
   const lat = latlng[0];
@@ -54,52 +110,8 @@ app.get('/weather/:latlng', async (request, response) => {
 });
 
 
-// user authentication
-app.use(express.json());
-const users = [];
-
-app.get('/login', async (request, response) => {
-  response.render('login.ejs');
-});
-app.get('/register', (request, response) => {
-  response.render('register.ejs');
-});
-
-// user login
-app.post('/login', async (request, response) => {
-  const user = users.find(user => user.name === request.body.name);
-  if(user == null){
-    return response.status(400).send("Can't find user");
-  } else{
-    try{
-      if(await bcrypt.compare(request.body.password, user.password)){
-        response.send('Success');
-      } else {
-        response.send('Error');
-      }
-    } catch(error){
-      response.status(500).send()
-    }
-  }
-});
-
-// create and push users to database
-app.post('/register', async (request, response) => {
-  try{
-    // bigger the salt the more secure -- but more time to make hash default 10
-    const hashedPassword = await bcrypt.hash(request.body.password, 10);
-    console.log(hashedPassword);
-    const user = {name: request.body.name, password: hashedPassword};
-    users.push(user);
-    response.status(201).send();
-  } catch(error) {
-    response.status(500).send();
-    console.log(error);
-  }
-});
-
-const httpServer = http.createServer(app);
+//const httpServer = http.createServer(app);
 //const httpsServer = https.createServer(credentials, app);
 console.log("Creating server");
-httpServer.listen(80);
+app.listen(process.env.PORT || 80);
 //httpsServer.listen(8443);

@@ -9,10 +9,13 @@ if('geolocation' in navigator) {
     const degree = '&deg;';
     const dsUrl = `weather/${lat},${lng}`;
     const dsResponse = await fetch(dsUrl);
-    const data = await dsResponse.json();
+    const json = await dsResponse.json();
+    const data = json.weather;
+    const location = json.current_location;
     console.log(data);
 
-  // populate summary, temperature & high/low, weeklyForecast
+  // populate location, summary, temperature & high/low, weeklyForecast
+    $('day').textContent = location.Response.View[0].Result[0].Location.Address.Label;
     $('summary').textContent = data.currently.summary;
     $('temp').innerHTML = data.currently.temperature.toFixed(0) + degree + " F";
     $('currentHigh').innerHTML = data.daily.data[0].apparentTemperatureHigh.toFixed(0) + degree +" F";

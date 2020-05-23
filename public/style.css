@@ -38,7 +38,7 @@
 html
 {
     font-family: "Avenir Next", sans-serif;
-    text-align: center;
+
 }
 body
 {
@@ -51,147 +51,24 @@ h1, h3{
 
 
 
-/* DROPDOWN MENU*/
+/* DROPDOWN MENU
 nav > button
 {
     border: none;
     text-decoration: none;
     color: white;
     cursor: pointer;
-    margin: 4px 2px;
     background-color: inherit;
 }
-
-
-
-/*
-#dropdown
-{
-    position: sticky;
-    text-align: left;
-    left:0;
-    top: 0;
-    height: 0px;
-    margin: 0 auto;
-}
-nav
-{
-
-
-}
-nav h3
-{
-    margin: 0;
-    padding-top: 10px;
-    padding-left: 25px;
-}
-nav a
-{
-    text-decoration: none;
-    font-size: 24px;
-}
-nav ul
-{
-    list-style: none;
-    margin: 0;
-    padding-left: 0;
-    margin-left: auto;
-}
-nav li
-{
-    color: #fff;
-    display: block;
-    padding: 10px 25px;
-    position: relative;
-    text-decoration: none;
-    transition-duration: 500ms;
-}
-nav li button
-{
-    background: none;
-    padding: 0;
-    border:  none;
-}
-nav li:hover,
-nav li:focus
-{
-    color: black;
-}
-nav ul li ul
-{
-    transition: background-color 0.5s ease-in;
-    margin-top: 10px;
-    left: 0;
-    display: none;
-}
-nav ul li:hover > ul,
-nav ul li:focus > ul,
-nav ul li ul:focus,
-nav ul li ul:hover
-{
-    position: absolute;
-    opacity: 1;
-    display: block;
-}
-nav ul li ul li
-{
-    clear: both;
-    width: 100%;
-    animation: animate 800ms forwards ease;
-    position: sticky;
-}
-
 */
-
-
-
-
-/*body elements
-#temperature{
-    margin:4px;
-
-    float:left;
+#fahrenheit, #celsius, #kelvin, .darkMode
+{
+  border: none;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+  background-color: inherit;
 }
-#temperature label {
-    float:left;
-    width:170px;
-    margin:4px;
-    background-color:#EFEFEF;
-    border-radius:4px;
-    border:1px solid #D0D0D0;
-    overflow:auto;
-
-}
-#temperature label span {
-    text-align:center;
-    font-size: 30px;
-    padding:13px 0px;
-    display:block;
-}
-
-#temperature label input {
-    position:absolute;
-    top:-410px;
-}
-#temperature input:checked + span {
-    background-color:#404040;
-    color:#F7F7F7;
-}
-
-#temperature .fahrenheit {
-    background-color:#FFCC00;
-    color:#333;
-}
-#temperature .celsius {
-    background-color:#A3D900;
-    color:#333;
-}
-#temperature .kelvin {
-    background-color:#00BFFF;
-    color:#333;
-}
-*/
-/**/
 .forecast
 {
     display: inline-block;
@@ -221,6 +98,7 @@ nav ul li ul li
 #forecastIconContainer
 {
     padding-top: 20px;
+    text-align: center;
 }
 .forecastIcon
 {
@@ -233,10 +111,11 @@ nav ul li ul li
 
     position: relative;
 }
-#day
+.dayDate
 {
     font-size: 30px;
     display: inline-block;
+    text-align: center;
 }
 #temp
 {
@@ -260,6 +139,7 @@ nav ul li ul li
 #weeklyFcTitle
 {
     font-size: 35px;
+    text-align: center;
 }
 hr
 {
@@ -272,7 +152,7 @@ hr
 #and
 {
     font-size: 30px;
-    padding-left: 10%;
+    padding-left: 19%;
 }
 .fcSumBottom
 {
@@ -292,7 +172,11 @@ hr
     display: inline-block;
     vertical-align: top;
 }
+#currentHigh, #currentHighLow
+{
+  padding-left: 2%;
+}
 .currentHighLow
 {
-    padding-left: 10%;
+    padding-left: 5%;
 }

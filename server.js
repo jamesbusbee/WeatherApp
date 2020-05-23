@@ -2,13 +2,7 @@ if(process.env.NODE_ENV != 'production'){
   require('dotenv').config();
 }
 
-const fs = require('fs');
-const http = require('http');
-const https = require('https');
 const fetch = require('node-fetch');
-const privateKey = fs.readFileSync('key.pem', 'utf8');
-const certificate = fs.readFileSync('cert.pem', 'utf8');
-const credentials = {key: privateKey, cert: certificate};
 const express = require('express');
 const path = require('path');
 const bcrypt = require('bcrypt');
@@ -84,7 +78,6 @@ app.post('/register', async (request, response) => {
   }
 });
 
-
 // weather functionality
 app.get('/weather/:latlng', async (request, response) => {
   const latlng = request.params.latlng.split(',');
@@ -109,9 +102,5 @@ app.get('/weather/:latlng', async (request, response) => {
   response.json(data);
 });
 
-
-//const httpServer = http.createServer(app);
-//const httpsServer = https.createServer(credentials, app);
 console.log("Creating server");
 app.listen(process.env.PORT || 80);
-//httpsServer.listen(8443);

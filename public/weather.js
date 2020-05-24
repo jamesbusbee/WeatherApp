@@ -1,5 +1,4 @@
 // geolocate user
-let lng, lat;
 if('geolocation' in navigator) {
   console.log('geolocation available');
   navigator.geolocation.getCurrentPosition(async pos => {

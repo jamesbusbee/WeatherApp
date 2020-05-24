@@ -10,6 +10,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const expressLayouts = require('express-ejs-layouts');
 const indexRouter = require('./routes/index');
+const registerRouter = require('./routes/register');
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
@@ -18,13 +19,6 @@ app.use(expressLayouts);
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 app.use('/static', express.static('public'));
-
-// database set up
-const mongo = require('mongoose');
-mongo.connect(process.env.DATABASE_URL, {useNewUrlParser: true});
-const db = mongo.connection;
-db.on('error', error => console.error(error));
-db.once('open', () => console.log("Connected to Mongodb"));
 
 // CORS fix supposedly
 app.use(function(req, res, next) {
@@ -35,6 +29,8 @@ app.use(function(req, res, next) {
 
 // create root route
 app.use('/', indexRouter);
+// create register route
+app.use('/', registerRouter);
 
 // register and login/user authentication
 app.use(express.json());
@@ -60,23 +56,6 @@ app.post('/login', async (request, response) => {
   }
 });
 
-// create and push users to database
-app.get('/register', (request, response) => {
-  response.render('register.ejs');
-});
-app.post('/register', async (request, response) => {
-  try{
-    // bigger the salt the more secure -- but more time to make hash default 10
-    const hashedPassword = await bcrypt.hash(request.body.password, 10);
-    console.log(hashedPassword);
-    const user = {name: request.body.name, password: hashedPassword};
-    users.push(user);
-    response.status(201).send();
-  } catch(error) {
-    response.status(500).send();
-    console.log(error);
-  }
-});
 
 // weather functionality
 app.get('/weather/:latlng', async (request, response) => {

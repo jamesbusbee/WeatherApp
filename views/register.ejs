@@ -6,20 +6,38 @@
     <h1 class="mb-5 font-weight-light text-center">Register</h1>
     <form action="/register" method="POST" class="register-form">
       <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" name="name" id="name" class="form-control rounded-pill form-control-lg" required>
+        <label for="name">Userame</label>
+        <input type="text"
+        name="name" id="name"
+        class="form-control rounded-pill form-control-lg"
+        placeholder="Create Username"
+        value="<%= typeof name != 'undefined' ? name : '' %>"
+        required >
       </div>
       <div>
         <label for="name">Email</label>
-        <input type="text" name="email" id="email" class="form-control rounded-pill form-control-lg" required>
+        <input type="text"
+        name="email" id="email"
+        class="form-control rounded-pill form-control-lg"
+        placeholder=" Enter Email"
+        value="<%= typeof email != 'undefined' ? email : '' %>"
+        required>
       </div>
       <div>
         <label for="name">Password</label>
-        <input type="text" name="password" id="password" class="form-control rounded-pill form-control-lg" required>
+        <input type="text"
+        name="password" id="password"
+        class="form-control rounded-pill form-control-lg"
+        placeholder="Create Password"
+        required>
       </div>
       <div>
         <label for="name">Confirm Password</label>
-        <input type="text" name="confirmPassword" id="confirmPassword" class="form-control rounded-pill form-control-lg" required>
+        <input type="text"
+        name="confirmPassword" id="confirmPassword"
+        class="form-control rounded-pill form-control-lg"
+        placeholder="Confirm Password"
+        required>
       </div>
       <div id="passwordCheck"></div>
       <button type="submit" name="button" class="btn mt-5 btn-custom btn-block text-uppercase rounded-pill btn-lg">

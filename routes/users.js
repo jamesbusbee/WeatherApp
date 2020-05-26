@@ -29,7 +29,7 @@ const userSchema = new Schema({
 let User = mongo.model('User', userSchema);
 
 // register page route
-router.get('/register', (request, response) => {
+router.get('/register', async (request, response) => {
   response.render('register.ejs');
 });
 

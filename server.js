@@ -9,7 +9,8 @@ const bcrypt = require('bcrypt');
 const app = express();
 const bodyParser = require('body-parser');
 const expressLayouts = require('express-ejs-layouts');
-const indexRouter = require('./routes/dashboard');
+const indexRouter = require('./routes/index');
+const dashboardRouter = require('./routes/dashboard');
 const registerRouter = require('./routes/users');
 
 app.set('views', __dirname + '/views');
@@ -27,36 +28,12 @@ app.use(function(req, res, next) {
   next();
 });
 
-// create root route
-app.use('/dashboard', indexRouter);
+// create welcome route at root
+app.use('/', indexRouter);
+// create dashboard route
+app.use('/dashboard', dashboardRouter);
 // create register route
 app.use('/users', registerRouter);
-
-// register and login/user authentication
-app.use(express.json());
-
-// user login
-app.get('/login', async (request, response) => {
-  response.render('login.ejs');
-});
-app.post('/login', async (request, response) => {
-  const user = users.find(user => user.name === request.body.name);
-  if(user == null){
-    return response.status(400).send("Can't find user");
-  } else{
-    // comparison for password
-    try{
-      if(await bcrypt.compare(request.body.password, user.password)){
-        response.send('Success');
-      } else {
-        response.send('Error');
-      }
-    } catch(error){
-      response.status(500).send()
-    }
-  }
-});
-
 
 // weather functionality
 app.get('/weather/:latlng', async (request, response) => {

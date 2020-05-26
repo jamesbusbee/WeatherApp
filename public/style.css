@@ -6,7 +6,7 @@
     #icon {width: 100%;}
     .fcIcon {width: 49%; height: 100%;}
 }
-/*small devices -- portrait tablets and large phones*/
+ /*small devices -- portrait tablets and large phones*/
 @media only screen and (min-width: 633px)
 {
     #forecastIconContainer {width: 100%;}
@@ -55,7 +55,13 @@ h1, h3{
 
 
 
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+    outline: none;
+    box-shadow: none;
 
+}
 .btn
 {
   border: none;
@@ -188,7 +194,7 @@ hr
 }
 
 
-.login-form, .register-form
+.login-form, .register-form, .welcome
 {
   max-width: 100%;
   width: 370px;
@@ -208,8 +214,8 @@ hr
 }
 .form-control:focus
 {
-  border-color:#00DFD8;
-  box-shadow: 0 0 0 0.2rem rgba(0, 223, 216);
+  border-color: orange;
+  box-shadow: 0 0 0 0.2rem orange;
 }
 .forgot-link label
 {
@@ -224,12 +230,12 @@ hr
 .login-form a:hover,
 .register-form a:hover
 {
-  color: #00DFD8;
+  color: orange;
 }
 .btn-custom
 {
-  background: #00DFD8;
-  border-color: #00DFD8;
+  background: orange;
+  border-color: orange;
   color: #fff;
   font-size: 15px;
   font-weight: 600;
@@ -240,8 +246,8 @@ btn-custom:hover,
 btn-custom:active,
 btn-custom:active:focus
 {
-  background: #00DFD8;
-  border-color: #00DFD8;
+  background: orange;
+  border-color: orange;
   color: #fff;
 }
 .btn-custom:focus
@@ -250,7 +256,7 @@ btn-custom:active:focus
 }
 .me
 {
-  color: #00DFD8;
+  color: orange;
 }
 #login
 {

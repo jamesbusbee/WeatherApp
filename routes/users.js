@@ -19,6 +19,7 @@ db.once('open', () => console.log("Connected to Mongodb"));
 
 const Schema = mongo.Schema;
 
+// create user attributes
 const userSchema = new Schema({
   name: {type: String, unique: true},
   email: {type: String, unique:true},
@@ -49,8 +50,30 @@ router.post('/register', async (request, response) => {
     if (error) throw error;
     console.log("Document inserted successfully");
   });
-  response.redirect('/');
+  response.redirect('/dashboard');
   return console.log(user.name + ' ' + user.email + ' ' + user.password);
 });
 
+// login page route
+router.get('/login', (request, response) => {
+  response.render('login.ejs');
+});
+
+router.post('/login', async (request, response) => {
+  const user = users.find(user => user.name === request.body.name);
+  if(user == null){
+    return response.status(400).send("Can't find user");
+  } else{
+    // comparison for password
+    try{
+      if(await bcrypt.compare(request.body.password, user.password)){
+        response.send('Success');
+      } else {
+        response.send('Error');
+      }
+    } catch(error){
+      response.status(500).send()
+    }
+  }
+});
 module.exports = router;

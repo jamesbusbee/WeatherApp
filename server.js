@@ -9,13 +9,13 @@ const bcrypt = require('bcrypt');
 const app = express();
 const bodyParser = require('body-parser');
 const expressLayouts = require('express-ejs-layouts');
-const indexRouter = require('./routes/index');
-const registerRouter = require('./routes/register');
+const indexRouter = require('./routes/dashboard');
+const registerRouter = require('./routes/users');
 
-app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 app.set('layout', 'layouts/layout');
 app.use(expressLayouts);
+app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 app.use('/static', express.static('public'));
@@ -28,9 +28,9 @@ app.use(function(req, res, next) {
 });
 
 // create root route
-app.use('/', indexRouter);
+app.use('/dashboard', indexRouter);
 // create register route
-app.use('/', registerRouter);
+app.use('/users', registerRouter);
 
 // register and login/user authentication
 app.use(express.json());

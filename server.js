@@ -44,6 +44,7 @@ app.post('/login', async (request, response) => {
   if(user == null){
     return response.status(400).send("Can't find user");
   } else{
+    // comparison for password
     try{
       if(await bcrypt.compare(request.body.password, user.password)){
         response.send('Success');

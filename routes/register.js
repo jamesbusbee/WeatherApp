@@ -40,19 +40,16 @@ router.post('/register', async (request, response) => {
   let name = request.body.name;
   let email = request.body.email;
   let user = new User();
+
   user.name = name;
   user.email = email;
   user.password = hashedPassword;
-  //const data = {
-    //"name": request.body.name,
-    //"email": request.body.email,
-    //"password": hashedPassword
-  //}
+
   db.collection('Users').insertOne(user, function(error, collection){
     if (error) throw error;
     console.log("Document inserted successfully");
   });
-  response.render('index');
+  response.redirect('/');
   return console.log(user.name + ' ' + user.email + ' ' + user.password);
 });
 

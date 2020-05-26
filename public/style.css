@@ -180,3 +180,81 @@ hr
 {
     padding-left: 5%;
 }
+
+
+
+
+/* LOGIN PAGE */
+* {
+  box-sizing: border-box;
+}
+
+
+.login-form, .register-form
+{
+  max-width: 100%;
+  width: 370px;
+  padding 15px;
+  margin: auto;
+}
+#forgotPass, #login, label
+{
+  font-family: "Avenir Next", sans-serif;
+  font-weight: lighter;
+}
+.form-control
+{
+  font-size: 15px;
+  min-height: 48px;
+  font-weight: 500;
+}
+.form-control:focus
+{
+  border-color:#00DFD8;
+  box-shadow: 0 0 0 0.2rem rgba(0, 223, 216);
+}
+.forgot-link label
+{
+    margin-bottom: 0;
+}
+.login-form a,
+.register-form a
+{
+  text-decoration: none;
+  color: #666;
+}
+.login-form a:hover,
+.register-form a:hover
+{
+  color: #00DFD8;
+}
+.btn-custom
+{
+  background: #00DFD8;
+  border-color: #00DFD8;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  min-height: 48px;
+}
+btn-custom:focus,
+btn-custom:hover,
+btn-custom:active,
+btn-custom:active:focus
+{
+  background: #00DFD8;
+  border-color: #00DFD8;
+  color: #fff;
+}
+.btn-custom:focus
+{
+  box-shadow: 0 0 0 0.2rem rgba(114,61,190, .25);
+}
+.me
+{
+  color: #00DFD8;
+}
+#login
+{
+  padding-top: 20px;
+}

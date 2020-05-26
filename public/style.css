@@ -44,6 +44,10 @@ body
 {
     margin: 0 auto;
 }
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
 h1, h3{
     font-weight: 100;
 }
@@ -51,29 +55,23 @@ h1, h3{
 
 
 
-/* DROPDOWN MENU
-nav > button
-{
-    border: none;
-    text-decoration: none;
-    color: white;
-    cursor: pointer;
-    background-color: inherit;
-}
-*/
-#fahrenheit, #celsius, #kelvin, .darkMode
+
+.btn
 {
   border: none;
   text-decoration: none;
   color: white;
   cursor: pointer;
-  background-color: inherit;
+  box-shadow: none !important;
+}
+.btn:hover
+{
+  color: white;
 }
 .forecast
 {
     display: inline-block;
 }
-/* */
 #container
 {
     display: inline-block;

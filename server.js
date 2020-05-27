@@ -12,21 +12,18 @@ const expressLayouts = require('express-ejs-layouts');
 const indexRouter = require('./routes/index');
 const dashboardRouter = require('./routes/dashboard');
 const registerRouter = require('./routes/users');
+const mongo = require('mongoose');
 
+// EJS setup - can probably get rid of some od these eventually
 app.set('views', __dirname + '/views');
 app.set('layout', 'layouts/layout');
 app.use(expressLayouts);
 app.set('view engine', 'ejs');
 app.use(bodyParser.json());
+
+// Body parser - allows response.body
 app.use(express.urlencoded({ extended: false }));
 app.use('/static', express.static('public'));
-
-// CORS fix supposedly
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
 
 // create welcome route at root
 app.use('/', indexRouter);

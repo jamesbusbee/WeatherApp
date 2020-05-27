@@ -72,7 +72,7 @@ app.get('/weather/:latlng', async (request, response) => {
     weather: dsJson,
     current_location: hereJson
   };
-  response.json(data);
+  //response.json(data);
 });
 
 console.log("Creating server");

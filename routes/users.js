@@ -13,7 +13,8 @@ router.use(bodyParser.urlencoded({
 // DB config
 mongo.connect(process.env.DATABASE_URL, {
   useNewUrlParser: true,
-  useUnifiedTopology: true});
+  useUnifiedTopology: true
+});
 const db = mongo.connection;
 db.on('error', error => console.error(error));
 db.once('open', () => console.log("Connected to Mongodb"));
@@ -79,7 +80,7 @@ router.post('/register', async (request, response) => {
               // set password to hashed version
               newUser.password = hash;
               // save the newly created user
-              db.collection('Users').insertOne(newUser, (error, collection) =>{
+              db.collection('Users').insertOne(newUser, (error, response) =>{
                 if(error) throw error;
                 console.log('User created successfully');
               });

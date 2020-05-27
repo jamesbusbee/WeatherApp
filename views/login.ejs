@@ -2,6 +2,7 @@
   <div class="login-container">
     <form class="login-form" action="/users/login" method="POST">
       <h1 class="mb-5 font-weight-light text-center text-uppercase"> Buzzy<span class="me">Weather</span></h1>
+      <%- include('partials/messages') %>
       <div class="form-group">
         <input type="text" class="form-control rounded-pill form-control-lg" name="name" placeholder="Username or Email">
       </div>

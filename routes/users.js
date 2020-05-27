@@ -37,38 +37,67 @@ router.post('/register', async (request, response) => {
   }
 
   // check if passwords match
-  if(password != password2){
-    errors.push({msf: 'Passwords do not match'});
-  }
+  if(password != password2){ errors.push({msg: 'Passwords do not match'});}
 
   // check password length
-  if(password.length < 6){
-    errors.push({msg: 'Password must be at least 6 characters'});
-  }
+  if(password.length < 6){ errors.push({msg: 'Password must be at least 6 characters'});}
 
-  // bigger the salt the more secure -- but more time to make hash default 10
-  const MongoClient = require('mongodb').MongoClient;
-  let user = new User();
-
-  // hash password
-  const hashedPassword = bcrypt.hash(request.body.password, 10);
-  user.name = name;
-  user.email = email;
-  user.password = hashedPassword;
-
-  db.collection('Users').insertOne(user, function(error, collection){
-    if (error) throw error;
-    console.log("Document inserted successfully");
-  });
-  response.redirect('/dashboard');
-  return console.log(user.name + ' ' + user.email + ' ' + user.password);
+  // check if errors are present
+  if(errors.length > 0){
+    response.render('register', {
+      errors,
+      name,
+      email,
+      password,
+      password2
+    });
+  // Create user and push to Mongo
+  } else {
+    // check if user exists -- if no, go on to insert into mongo
+    db.collection('Users').findOne({email: email}).then(user => {
+        if(user){
+          // user exists
+          errors.push({msg: 'Account with that email already exists'});
+          response.render('register', {
+            errors,
+            name,
+            email,
+            password,
+            password2
+          });
+        } else {
+          const newUser = new User({
+            name,
+            email,
+            password
+          });
+          // bigger the salt the more secure -- but more time to make hash default 10
+          // hash password
+          bcrypt.genSalt(10, (error, salt) => {
+            bcrypt.hash(newUser.password, salt, (error,hash) => {
+              if(error) throw error;
+              // set password to hashed version
+              newUser.password = hash;
+              // save the newly created user
+              db.collection('Users').insertOne(newUser, (error, collection) =>{
+                if(error) throw error;
+                console.log('User created successfully');
+              });
+              request.flash('success_msg', 'You are registered and can now log in');
+              response.redirect('/users/login');
+              console.log(newUser);
+            });
+          }); // end of gen salt
+        }
+      });
+    }
 });
 
 // login page route
 router.get('/login', (request, response) => {
   response.render('login.ejs');
 });
-
+// handles login
 router.post('/login', async (request, response) => {
   const user = users.find(user => user.name === request.body.name);
   if(user == null){

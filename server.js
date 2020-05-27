@@ -13,6 +13,8 @@ const indexRouter = require('./routes/index');
 const dashboardRouter = require('./routes/dashboard');
 const registerRouter = require('./routes/users');
 const mongo = require('mongoose');
+const flash = require('connect-flash');
+const session = require('express-session');
 
 // EJS setup - can probably get rid of some od these eventually
 app.set('views', __dirname + '/views');
@@ -25,6 +27,23 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 app.use('/static', express.static('public'));
 
+// express session middleware
+app.use(session({
+  secret: 'secret',
+  resave: true,
+  saveUninitialized: true
+}));
+
+// connect flash -- gives access to request.flash messages
+app.use(flash());
+
+// glabal vars for flash
+app.use((request, response, next) => {
+  response.locals.success_msg = request.flash('success_msg');
+  response.locals.error_msg = request.flash('error_msg');
+  next();
+})
+
 // create welcome route at root
 app.use('/', indexRouter);
 // create dashboard route
@@ -32,7 +51,7 @@ app.use('/dashboard', dashboardRouter);
 // create register route
 app.use('/users', registerRouter);
 
-// weather functionality
+// handles retrieving weather forecast and current location
 app.get('/weather/:latlng', async (request, response) => {
   const latlng = request.params.latlng.split(',');
   const lat = latlng[0];

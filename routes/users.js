@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const mongo = require('mongoose');
 const bodyParser = require('body-parser');
 const User = require('../models/User');
-
+const passport = require('passport');
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({
   extended: true
@@ -94,26 +94,26 @@ router.post('/register', async (request, response) => {
     }
 });
 
-// login page route
-router.get('/login', (request, response) => {
+// get login
+router.get('/login', async (request, response) => {
   response.render('login.ejs');
 });
 // handles login
-router.post('/login', async (request, response) => {
-  const user = users.find(user => user.name === request.body.name);
-  if(user == null){
-    return response.status(400).send("Can't find user");
-  } else{
-    // comparison for password
-    try{
-      if(await bcrypt.compare(request.body.password, user.password)){
-        response.send('Success');
-      } else {
-        response.send('Error');
-      }
-    } catch(error){
-      response.status(500).send()
-    }
-  }
+router.post('/login', async (request, response, next) => {
+  // authenticate user using local strategy
+  passport.authenticate('local', {
+    successRedirect: '/dashboard',
+    failureRedirect: '/users/login',
+    failureFlash: true
+  })(request, response, next);
 });
+
+// handles Logout
+router.get('/logout', async (request, response) => {
+// using passport middelware gives access
+  request.logout();
+  request.flash('success_msg', 'You are logged out');
+  response.redirect('/users/login');
+});
+
 module.exports = router;

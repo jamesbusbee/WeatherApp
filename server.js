@@ -15,6 +15,9 @@ const registerRouter = require('./routes/users');
 const mongo = require('mongoose');
 const flash = require('connect-flash');
 const session = require('express-session');
+const passport = require('passport');
+// passport config
+require('./config/passport')(passport);
 
 // EJS setup - can probably get rid of some of these eventually
 app.set('views', __dirname + '/views');
@@ -23,7 +26,7 @@ app.use(expressLayouts);
 app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 
-// Body parser - allows response.body
+// body parser - allows response.body
 app.use(express.urlencoded({ extended: false }));
 app.use('/static', express.static('public'));
 
@@ -34,13 +37,18 @@ app.use(session({
   saveUninitialized: true
 }));
 
+// passport middleware -- MUST BE AFTER EXPRESSS SESSION MIDDLEWARE
+app.use(passport.initialize());
+app.use(passport.session());
+
 // connect flash -- gives access to request.flash messages
 app.use(flash());
 
-// glabal vars for flash
+// global vars for flash
 app.use((request, response, next) => {
   response.locals.success_msg = request.flash('success_msg');
   response.locals.error_msg = request.flash('error_msg');
+  response.locals.error = request.flash('error');
   next();
 })
 

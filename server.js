@@ -16,7 +16,7 @@ const mongo = require('mongoose');
 const flash = require('connect-flash');
 const session = require('express-session');
 
-// EJS setup - can probably get rid of some od these eventually
+// EJS setup - can probably get rid of some of these eventually
 app.set('views', __dirname + '/views');
 app.set('layout', 'layouts/layout');
 app.use(expressLayouts);

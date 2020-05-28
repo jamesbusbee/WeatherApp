@@ -1,59 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-      <title>Today's Forecast</title>
-    </head>
-    <body id="body">
-      <!-- dropdown menu-->
-      <nav class="navbar navbar-custom navbar-expand-md navbar-dark bg-dark sticky-top">
-        <img src="/static/buzzyweatherRESIZE.png" alt="buzzyweather">
-        <button class="btn nav-item bg-dark" id="fahrenheit">
-          <span>Fahrenheit</span>
-        </button>
+<script type="text/javascript" src="/static/weather.js"></script>
+<body id="body">
+  <!-- dropdown menu-->
+  <nav class="navbar navbar-custom navbar-expand-md navbar-dark bg-dark sticky-top">
+    <img src="/static/buzzyweatherRESIZE.png" alt="buzzyweather">
+    <button class="btn nav-item bg-dark" id="fahrenheit">
+      <span>Fahrenheit</span>
+    </button>
 
-        <button class="btn nav-item bg-dark" id="celsius">
-          <span>Celsius</span>
-        </button>
+    <button class="btn nav-item bg-dark" id="celsius">
+      <span>Celsius</span>
+    </button>
 
-        <button class="btn nav-item bg-dark" id="kelvin">
-          <span>Kelvin</span>
-        </button>
+    <button class="btn nav-item bg-dark" id="kelvin">
+      <span>Kelvin</span>
+    </button>
 
-        <button class="btn darkMode bg-dark" onclick="darkMode()">
-          <span class="darkmodesign" id="darkmodesign">Dark Mode</span>
-        </button>
+    <button class="btn darkMode bg-dark" onclick="darkMode()">
+      <span class="darkmodesign" id="darkmodesign">Dark Mode</span>
+    </button>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse"
-        data-target="#navbarSupportedContent">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+    <button class="navbar-toggler" type="button" data-toggle="collapse"
+    data-target="#navbarSupportedContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="/">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/users/register">Register</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://www.linkedin.com/in/james-busbee-4709b0170">About</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/users/register">Register</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://www.linkedin.com/in/james-busbee-4709b0170">About</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
 
-        <!-- current day forecast section-->
-        <!-- reverse geolocated position -->
-        <p id="day" class="dayDate text-xs-center"></p>
-            <!-- current condition skycon -->
-            <div id="canvasContainer"><canvas id="icon"></canvas></div>
-            <div id="currentSumContainer">
-                <div id="temp"></div>
-                <span id="and">and</span>
-                <div id="summary"></div>
-                <br>
+  <!-- current day forecast section-->
+  <!-- reverse geolocated position -->
+  <p id="day" class="dayDate text-xs-center"></p>
+    <!-- current condition skycon -->
+    <div id="canvasContainer"><canvas id="icon"></canvas></div>
+      <div id="currentSumContainer">
+        <div id="temp"></div>
+          <span id="and">and</span>
+          <div id="summary"></div>
+          <br>
                 <span class="currentHighLow">High: <span id="currentHigh" class="currentHighLow"></span></span>
                 <br>
                 <span class="currentHighLow">Low: <span id="currentLow" class="currentHighLow"></span></span>

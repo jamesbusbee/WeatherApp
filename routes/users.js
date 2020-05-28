@@ -38,10 +38,10 @@ router.post('/register', async (request, response) => {
   }
 
   // check if passwords match
-  if(password != password2){ errors.push({msg: 'Passwords do not match'});}
+  if(password != password2){ errors.push({msg: 'Passwords do not match'}); }
 
   // check password length
-  if(password.length < 6){ errors.push({msg: 'Password must be at least 6 characters'});}
+  if(password.length < 6){ errors.push({msg: 'Password must be at least 6 characters'}); }
 
   // check if errors are present
   if(errors.length > 0){

@@ -6,7 +6,7 @@ if('geolocation' in navigator) {
     lng = pos.coords.longitude;
     const $ = function( id ) { return document.getElementById( id ); };
     const degree = '&deg;';
-    const dsUrl = `weather/${lat},${lng}`;
+    const dsUrl = `/weather/${lat},${lng}`;
     const dsResponse = await fetch(dsUrl);
     const json = await dsResponse.json();
     const data = json.weather;
